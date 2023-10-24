@@ -1,0 +1,14 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+  background-color: #e8e9eb;
+  /* min-height: 100dvh; */
+}
+
+.bg_color {
+  background-image: url(./assets/images/background.png);
+  background-repeat: repeat-y;
+  background-size: cover;
+  /* height: 100vh;
+  min-height: 100%; */
+}

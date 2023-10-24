@@ -1,0 +1,140 @@
+#upload_image {
+  padding-bottom: 40px;
+}
+
+.home_container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.image-styles-title {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 500;
+}
+
+.close-btn {
+  cursor: pointer;
+  background-color: black;
+  width: 30px;
+  height: 30px;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+/* image upload */
+.upload_image-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.drop_image {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 10px;
+  background: linear-gradient(
+    108deg,
+    rgba(38, 206, 206, 0.1) 0%,
+    rgba(173, 130, 247, 0.1) 100%
+  );
+  border: 2px dashed #26cece;
+  border-radius: 20px;
+}
+
+.image-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.drop_image_wrapper {
+  max-width: 726px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px;
+  background-image: repeating-linear-gradient(
+      20deg,
+      #26cece,
+      #26cece 13px,
+      transparent 13px,
+      transparent 24px,
+      #26cece 24px
+    ),
+    repeating-linear-gradient(
+      110deg,
+      #26cece,
+      #26cece 13px,
+      transparent 13px,
+      transparent 24px,
+      #26cece 24px
+    ),
+    repeating-linear-gradient(
+      200deg,
+      #26cece,
+      #26cece 13px,
+      transparent 13px,
+      transparent 24px,
+      #26cece 24px
+    ),
+    repeating-linear-gradient(
+      290deg,
+      #26cece,
+      #26cece 13px,
+      transparent 13px,
+      transparent 24px,
+      #26cece 24px
+    );
+  background-size: 2px calc(100% + 25.54px), calc(100% + 25.54px) 2px,
+    2px calc(100% + 25.54px), calc(100% + 25.54px) 2px;
+  background-position: 0 0, 0 0, 100% 0, 0 100%;
+  background-repeat: no-repeat;
+  animation: borderAnimation 1s infinite linear;
+}
+
+@keyframes borderAnimation {
+  from {
+    background-position: 0 0, -25.54px 0, 100% -25.54px, 0 100%;
+  }
+
+  to {
+    background-position: 0 -25.54px, 0 0, 100% 0, -25.54px 100%;
+  }
+}
+
+.file-input__input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-input__label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 5px 24px;
+  border-radius: 13.091px;
+  background: linear-gradient(108deg, #26cece 0%, #ad82f7 100%);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+}
+
+.file-input__label svg {
+  height: 16px;
+  margin-right: 4px;
+}

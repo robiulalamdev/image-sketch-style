@@ -1,0 +1,23 @@
+#top_header {
+  padding: 10px 0;
+  background-color: white;
+  /* margin-bottom: 40px; */
+}
+
+.gradient-icon {
+  padding: 14px 28px;
+  border-radius: 15px;
+  background: linear-gradient(108deg, #26cece 0%, #ad82f7 100%);
+}
+
+.gradient-icon:hover {
+  background: linear-gradient(108deg, #ad82f7 0%, #26cece 100%);
+}
+
+.nav-items {
+  margin-right: 30px;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
