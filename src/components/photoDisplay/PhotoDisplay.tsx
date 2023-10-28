@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Card, Grid } from "@mui/material";
 import styles from "./photo.module.css";
 import "./ImageEdit.css";
@@ -68,26 +69,14 @@ const imageSizeBtn = [
 ];
 
 type Props = {
-  styleImageUrl?: string | undefined;
-  imageToStyleUrl?: string;
-  doStyleTransferCallback: (
-    imageToStyle: ImageData,
-    styleImage: HTMLImageElement,
-    canvasDest: HTMLCanvasElement
-  ) => void;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
+  canvasData: { canvasA: number; canvasB: number };
+  handleBack: any;
 };
 
-//let styleImage: HTMLImageElement;
-
-const PhotoDisplay = ({
-  styleImageUrl,
-  imageToStyleUrl,
-  doStyleTransferCallback,
-  setStep,
-}: Props) => {
+const PhotoDisplay = ({ canvasData, handleBack }: Props) => {
   const [activeTab, setActiveTab] = useState(0);
   const [rotation, setRotation] = useState(0);
+  const [imageURL, setImageURL] = useState("");
 
   const rotateLeft = () => {
     setRotation((prevRotation) => prevRotation - 90);
@@ -97,43 +86,9 @@ const PhotoDisplay = ({
     setRotation((prevRotation) => prevRotation + 90);
   };
 
-  const resizeAndStylizeImage = (
-    imageToStyle: HTMLImageElement,
-    styleImage: HTMLImageElement,
-    imageCanvas: HTMLCanvasElement,
-    targetCanvas: HTMLCanvasElement
-  ) => {
-    let imageCanvasCtx = imageCanvas.getContext("2d");
-
-    let imageAspectRatio = imageToStyle.height / imageToStyle.width;
-    imageCanvas.height = imageCanvas.width * imageAspectRatio;
-    if (imageCanvasCtx != null) {
-      imageCanvasCtx.drawImage(
-        imageToStyle,
-        0,
-        0,
-        imageToStyle.width,
-        imageToStyle.height,
-        0,
-        0,
-        imageCanvas.width,
-        imageCanvas.height
-      );
-      let imageToStyleImgData = imageCanvasCtx.getImageData(
-        0,
-        0,
-        imageCanvas.width,
-        imageCanvas.height
-      );
-      doStyleTransferCallback(imageToStyleImgData, styleImage, targetCanvas);
-    }
-  };
-
-  console.log("styleImageUrl:" + resizeAndStylizeImage);
-
   const handleDownloadImage = () => {
     let imageCanvas = document.querySelector(
-      "#canvasContainer2"
+      `#canvasContainer${canvasData.canvasB}`
     ) as HTMLCanvasElement;
 
     let imageCanvasCtx = imageCanvas.getContext("2d");
@@ -147,6 +102,7 @@ const PhotoDisplay = ({
 
     if (downloadImgData) {
       const dataURL = imageCanvas.toDataURL("image/png");
+      setImageURL(dataURL);
       const a = document.createElement("a");
       a.href = dataURL;
       a.download = "image.png";
@@ -161,7 +117,9 @@ const PhotoDisplay = ({
           <div className="wrapper_container bg-white">
             <div className="pb-4">
               <button
-                onClick={() => setStep(1)}
+                onClick={() => {
+                  handleBack();
+                }}
                 className="border-0 bg-transparent d-flex align-items-center gap-2 fs-18 fw-medium text-black"
               >
                 <span>
@@ -206,26 +164,17 @@ const PhotoDisplay = ({
                     style={imageRoationCss}
                   >
                     <div className="w-50">
-                      <canvas
-                        id="canvasContainer1"
-                        className={styles.canvasHidden}
+                      <img
+                        className={styles.card}
+                        style={{
+                          transform: `rotate(${rotation}deg)`,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                        }}
+                        src={imageURL}
+                        alt=""
                       />
-                      <div key="canvasContainer2">
-                        <div
-                          className={styles.card}
-                          style={{
-                            transform: `rotate(${rotation}deg)`,
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "contain",
-                          }}
-                        >
-                          <canvas
-                            id="canvasContainer2"
-                            className={styles.canvasPhoto}
-                          />
-                        </div>
-                      </div>
                     </div>
                   </div>
 
@@ -233,7 +182,7 @@ const PhotoDisplay = ({
                     <div className="rotate_btn d-flex gap-4">
                       <button
                         onClick={rotateRight}
-                        className="right_rotate border-0 bg-whitee4 d-flex align-items-center justify-content-center"
+                        className="right_rotate border-0 bg-white e4 d-flex align-items-center justify-content-center"
                         style={rotateStyle}
                       >
                         <GrRotateRight />
@@ -241,7 +190,7 @@ const PhotoDisplay = ({
 
                       <button
                         onClick={rotateLeft}
-                        className="left_rotate border-0 bg-whitee4 d-flex align-items-center justify-content-center"
+                        className="left_rotate border-0 bg-white e4 d-flex align-items-center justify-content-center"
                         style={rotateStyle}
                       >
                         <GrRotateLeft />

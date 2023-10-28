@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from "react";
 import "./UploadImage.css";
 import dragIcon from "../../assets/images/drag.svg";
 import { AiOutlineClose } from "react-icons/ai";
-import ImageStyles from "./ImageStyles";
-import Loader from "../../assets/images/loader.gif";
 
 const imgThumbnail = {
   maxWidth: 195,
@@ -15,15 +14,13 @@ const colseBtn = {
   right: 10,
 };
 
-const UploadImage = ({
-  isLoading,
-  image,
-  predefinedStylesList,
-  setStateCallback,
-  setStyleImageCallback,
-}) => {
-  const [file, setFile] = useState(null);
+type Props = {
+  setStateCallback: any;
+  setFile: React.Dispatch<React.SetStateAction<any>>;
+  file: any;
+};
 
+const UploadImage = ({ setStateCallback, setFile, file }: Props) => {
   const removeFile = () => {
     setFile(null);
   };
@@ -41,7 +38,7 @@ const UploadImage = ({
     }
   };
 
-  function bytesToKB(bytes) {
+  function bytesToKB(bytes: number) {
     return (bytes / 1024).toFixed(2);
   }
   return (
@@ -51,18 +48,18 @@ const UploadImage = ({
           Upload Image
         </h6>
       </div>
-      <div className="upload_image-container">
-        <div className="drop_image relative">
+      <div className="upload_image-container cursor-pointer">
+        <div className="drop_image relative cursor-pointer">
           <div className="text-center">
             <img src={dragIcon} className="mb-3" alt="icon" />
             <h6 className="font-theme">Drag & Drop</h6>
             <p className="fs-12 text-black fw-normal mb-3 font-theme">or</p>
           </div>
-          <div className="file-input text-center">
+          <div className="file-input text-center cursor-pointer">
             <input
               type="file"
               onChange={handleImageChange}
-              className="opacity-0"
+              className="opacity-0 cursor-pointer"
               style={{
                 position: "absolute",
                 width: "100%",
@@ -117,22 +114,6 @@ const UploadImage = ({
           </div>
         )}
       </div>
-
-      {isLoading ? (
-        <div className="loader text-center">
-          <img src={Loader} style={{ width: "374px" }} alt="loader" />
-          <h2 className="fs-25 fw-bold text-black mb-4">
-            Your Images are being generated!
-          </h2>
-          <p className="fs-18 fw-medium text-black6c">Pls wait for a moment</p>
-        </div>
-      ) : (
-        <ImageStyles
-          image={image}
-          predefinedStylesList={predefinedStylesList}
-          setStyleImageCallback={setStyleImageCallback}
-        />
-      )}
     </section>
   );
 };

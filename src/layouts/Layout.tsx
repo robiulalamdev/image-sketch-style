@@ -12,18 +12,11 @@ export default function Layout({
   home?: boolean;
 }) {
   return (
-    <>
+    <div className="bg_color">
       <Header />
-      <div className="bg_color py-5">
+      <div className="py-5">
         <Outlet />
-        {/* {!home && (
-          <div className={styles.backToHome}>
-            <a href="/">
-              <a>← Back to home</a>
-            </a>
-          </div>
-        )} */}
       </div>
-    </>
+    </div>
   );
 }
