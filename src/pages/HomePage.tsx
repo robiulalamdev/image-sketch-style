@@ -20,10 +20,6 @@ import selectStyleImg9 from "../assets/images/selectstyle9.svg";
 import selectStyleImg10 from "../assets/images/selectstyle10.svg";
 import selectStyleImg11 from "../assets/images/selectstyle11.svg";
 import { Button } from "@mui/material";
-import ImageEdit from "../components/imageEdit/ImageEdit";
-import EditImage from "../components/home-ui/Edit-Image-ui/EditImage";
-import { Header } from "../components/shared/Header";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -38,45 +34,61 @@ const styleImages: { idA: number; idB: number; url: string; name: string }[] = [
     url: "/images/The_Great_Wave_off_Kanagawa.jpg",
     name: "kanagawa_great_wave",
   },
-  // {
-  //   idA: 3,
-  //   idB: 4,
-  //   url: "/images/Pillars_of_creation_2014_HST_WFC3-UVIS_full-res_denoised.jpg",
-  //   name: "hubble_pillars_of_creation",
-  // },
-  // {
-  //   url: "/images/1024px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
-  //   name: "van_gogh_starry_night",
-  // },
-  // {
-  //   url: "/images/JMW_Turner_-_Nantes_from_the_Ile_Feydeau.jpg",
-  //   name: "turner_nantes",
-  // },
-  // {
-  //   url: "/images/Les_Demoiselles_d%27Avignon.jpg",
-  //   name: "picasso_demoiselles_avignon",
-  // },
-  // { url: "/images/Large_bonfire.jpg", name: "fire" },
-  // {
-  //   url: "/images/Derkovits_Gyula_Woman_head_1922.jpg",
-  //   name: "derkovits_woman_head",
-  // },
-  // {
-  //   url: "/images/Untitled_%28Still_life%29_%281913%29_-_Amadeo_Souza-Cardoso_%281887-1918%29_%2817385824283%29.jpg",
-  //   name: "amadeo_style_life",
-  // },
-  // {
-  //   url: "/images/Derkovits_Gyula_Talig%C3%A1s_1920.jpg",
-  //   name: "derkovtis_talig",
-  // },
-  // {
-  //   url: selectStyleImg1,
-  //   name: "test name",
-  // },
-  // {
-  //   url: selectStyleImg2,
-  //   name: "test name",
-  // },
+  {
+    idA: 3,
+    idB: 4,
+    url: "/images/Pillars_of_creation_2014_HST_WFC3-UVIS_full-res_denoised.jpg",
+    name: "hubble_pillars_of_creation",
+  },
+  {
+    idA: 5,
+    idB: 6,
+    url: "/images/1024px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+    name: "van_gogh_starry_night",
+  },
+  {
+    idA: 7,
+    idB: 8,
+    url: "/images/JMW_Turner_-_Nantes_from_the_Ile_Feydeau.jpg",
+    name: "turner_nantes",
+  },
+  {
+    idA: 9,
+    idB: 10,
+    url: "/images/Les_Demoiselles_d%27Avignon.jpg",
+    name: "picasso_demoiselles_avignon",
+  },
+  { idA: 11, idB: 12, url: "/images/Large_bonfire.jpg", name: "fire" },
+  {
+    idA: 13,
+    idB: 14,
+    url: "/images/Derkovits_Gyula_Woman_head_1922.jpg",
+    name: "derkovits_woman_head",
+  },
+  {
+    idA: 15,
+    idB: 16,
+    url: "/images/Untitled_%28Still_life%29_%281913%29_-_Amadeo_Souza-Cardoso_%281887-1918%29_%2817385824283%29.jpg",
+    name: "amadeo_style_life",
+  },
+  {
+    idA: 17,
+    idB: 18,
+    url: "/images/Derkovits_Gyula_Talig%C3%A1s_1920.jpg",
+    name: "derkovtis_talig",
+  },
+  {
+    idA: 19,
+    idB: 20,
+    url: selectStyleImg1,
+    name: "test name 1",
+  },
+  {
+    idA: 21,
+    idB: 22,
+    url: selectStyleImg2,
+    name: "test name 2",
+  },
   // {
   //   url: selectStyleImg3,
   //   name: "test name",
