@@ -28,6 +28,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import NextArrow from "../components/nextArrow/NextArrow";
 import PrevArrow from "../components/prevArrow/PrevArrow";
+import { IoIosArrowBack } from "react-icons/io";
 
 const styleImages: { idA: number; idB: number; url: string; name: string }[] = [
   {
@@ -276,6 +277,17 @@ const HomePage = () => {
                   step === 2 ? "block" : "hidden"
                 }`}
               >
+                <button
+                  onClick={() => {
+                    setStep(1);
+                  }}
+                  className="border-0 bg-transparent d-flex align-items-center gap-2 fs-18 fw-medium text-black mb-4"
+                >
+                  <span>
+                    <IoIosArrowBack />
+                  </span>
+                  Back
+                </button>
                 <Slider {...settings}>
                   {styleImages?.map(
                     (

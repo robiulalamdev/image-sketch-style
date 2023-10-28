@@ -6,11 +6,7 @@ import Slider from "react-slick";
 import NextArrow from "../nextArrow/NextArrow";
 import PrevArrow from "../prevArrow/PrevArrow";
 
-const ImageStyles = ({
-  image,
-  predefinedStylesList,
-  setStyleImageCallback,
-}) => {
+const ImageStyles = ({ images }: { images: string[] }) => {
   const [changeScreen, setChangeScreen] = useState(false);
   const [changeTitle, setChangeTitle] = useState(null);
 
@@ -42,15 +38,15 @@ const ImageStyles = ({
   };
 
   const imageHandler = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    const url = e.currentTarget.getAttribute("src") as string;
-    if (image) {
-      setStyleImageCallback(url);
-      setChangeScreen(true);
-      setChangeTitle("Select Styles");
-      setTimeout(() => {}, 1000);
-    } else {
-      alert("Please upload an image");
-    }
+    // const url = e.currentTarget.getAttribute("src") as string;
+    // if (image) {
+    //   setStyleImageCallback(url);
+    //   setChangeScreen(true);
+    //   setChangeTitle("Select Styles");
+    //   setTimeout(() => {}, 1000);
+    // } else {
+    //   alert("Please upload an image");
+    // }
   };
 
   return (
@@ -64,14 +60,14 @@ const ImageStyles = ({
       <div className="imageStyles_slider pb-5">
         <div>
           <Slider {...settings}>
-            {predefinedStylesList.map((sliderItem: any, index: number) => (
+            {images?.map((sliderItem: string, index: number) => (
               <div
                 className="slider-item bg-transparent border-0 text-decoration-none"
                 key={index}
               >
                 <img
-                  className=" pointer"
-                  src={sliderItem.url}
+                  className=" cursor-pointer"
+                  src={sliderItem}
                   onClick={imageHandler}
                   style={{
                     width: "150px",
@@ -81,9 +77,9 @@ const ImageStyles = ({
                   alt="slider-img"
                 />
 
-                <h6 className="fs-15 font-medium text-capitalize text-black">
+                {/* <h6 className="fs-15 font-medium text-capitalize text-black">
                   {sliderItem.name.slice(0, 16)}
-                </h6>
+                </h6> */}
               </div>
             ))}
           </Slider>

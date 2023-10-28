@@ -4,7 +4,7 @@ import styles from "./photo.module.css";
 import "./ImageEdit.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import ImageEdit from "../imageEdit/ImageEdit";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ImageEditTabBtn from "../imageEdit/ImageEditTabBtn";
 import { GrRotateLeft, GrRotateRight } from "react-icons/gr";
 import DigitalImage from "../imageEditTab/DigitalImage";
@@ -85,6 +85,26 @@ const PhotoDisplay = ({ canvasData, handleBack }: Props) => {
   const rotateRight = () => {
     setRotation((prevRotation) => prevRotation + 90);
   };
+
+  useEffect(() => {
+    if (canvasData?.canvasA > 0) {
+      let imageCanvas = document.querySelector(
+        `#canvasContainer${canvasData.canvasB}`
+      ) as HTMLCanvasElement;
+
+      let imageCanvasCtx = imageCanvas.getContext("2d");
+      let downloadImgData = imageCanvasCtx?.getImageData(
+        0,
+        0,
+        imageCanvas.width,
+        imageCanvas.height
+      );
+      if (downloadImgData) {
+        const dataURL = imageCanvas.toDataURL("image/png");
+        setImageURL(dataURL);
+      }
+    }
+  }, [canvasData]);
 
   const handleDownloadImage = () => {
     let imageCanvas = document.querySelector(
