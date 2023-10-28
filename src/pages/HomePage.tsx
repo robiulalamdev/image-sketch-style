@@ -2,6 +2,7 @@ import FastStyleTransferModel from "../components/fastStyleTransferModel/FastSty
 import { useState } from "react";
 import PhotoDisplay from "../components/photoDisplay/PhotoDisplay";
 import styles from "./home.module.css";
+import "../components/home-ui/ImageStyles.css";
 import stylesPhoto from "../components/photoDisplay/photo.module.css";
 import { loadImage } from "../modules/utils";
 import UploadImage from "../components/home-ui/UploadImage";
