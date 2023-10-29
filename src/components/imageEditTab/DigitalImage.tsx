@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Select from "react-select";
 
-const DigitalImage = ({ options }) => {
+const DigitalImage = ({ options }: any) => {
   return (
     <div className="image_settings">
       {/* <div className='impression_potrait mb-5'>
@@ -37,7 +38,7 @@ const DigitalImage = ({ options }) => {
                 backgroundColor: "white",
               }),
 
-              ValueContainer: (baseStyles) => ({
+              ValueContainer: (baseStyles: any) => ({
                 ...baseStyles,
                 fontSize: "10px",
               }),

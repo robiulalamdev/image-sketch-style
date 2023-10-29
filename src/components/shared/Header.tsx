@@ -9,7 +9,10 @@ import avatar from "../../assets/images/avatar.svg";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const navItems = [
+type INavItems = { name: string; link: string };
+type IUserNavItems = { name: string; img: string; url: string };
+
+const navItems: INavItems[] = [
   {
     name: "home",
     link: "/",
@@ -24,7 +27,7 @@ const navItems = [
   },
 ];
 
-const userNav = [
+const userNav: IUserNavItems[] = [
   {
     name: "note",
     img: note,
@@ -84,7 +87,7 @@ export const Header = () => {
                 {userNav.map((navItem, index) => (
                   <li key={index} className="nav-items">
                     <Nav.Link
-                      href={navItem.link}
+                      href={navItem.url}
                       className="fw-semibold ff-poppins text-capitalize"
                     >
                       {navItem.name === "avatar" ? (

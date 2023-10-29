@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import "./ImageEdit.css";
 import previewImage from "../../assets/images/preview-image.svg";
@@ -66,7 +67,7 @@ const imageSizeBtn = [
   },
 ];
 
-const ImageEdit = ({ styledImage }) => {
+const ImageEdit = ({ styledImage }: any) => {
   const [activeTab, setActiveTab] = useState(0);
   const [rotation, setRotation] = useState(0);
 
