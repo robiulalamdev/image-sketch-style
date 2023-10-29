@@ -1,8 +1,9 @@
+/* eslint-disable no-var */
+/* eslint-disable prefer-const */
 import FastStyleTransferModel from "../components/fastStyleTransferModel/FastStyleTransferModel";
 import { useState } from "react";
 import PhotoDisplay from "../components/photoDisplay/PhotoDisplay";
-import styles from "./home.module.css";
-import "../components/home-ui/ImageStyles.css";
+import "../components/home-ui/GeneratedImages/generatedImages.css";
 import stylesPhoto from "../components/photoDisplay/photo.module.css";
 import { loadImage } from "../modules/utils";
 import UploadImage from "../components/home-ui/UploadImage";
@@ -10,15 +11,15 @@ import Loader from "../assets/images/loader.gif";
 
 import selectStyleImg1 from "../assets/images/selectstyle1.svg";
 import selectStyleImg2 from "../assets/images/selectstyle2.svg";
-import selectStyleImg3 from "../assets/images/selectstyle3.svg";
-import selectStyleImg4 from "../assets/images/selectstyle4.svg";
-import selectStyleImg5 from "../assets/images/selectstyle5.svg";
-import selectStyleImg6 from "../assets/images/selectstyle6.svg";
-import selectStyleImg7 from "../assets/images/selectstyle7.svg";
-import selectStyleImg8 from "../assets/images/selectstyle8.svg";
-import selectStyleImg9 from "../assets/images/selectstyle9.svg";
-import selectStyleImg10 from "../assets/images/selectstyle10.svg";
-import selectStyleImg11 from "../assets/images/selectstyle11.svg";
+// import selectStyleImg3 from "../assets/images/selectstyle3.svg";
+// import selectStyleImg4 from "../assets/images/selectstyle4.svg";
+// import selectStyleImg5 from "../assets/images/selectstyle5.svg";
+// import selectStyleImg6 from "../assets/images/selectstyle6.svg";
+// import selectStyleImg7 from "../assets/images/selectstyle7.svg";
+// import selectStyleImg8 from "../assets/images/selectstyle8.svg";
+// import selectStyleImg9 from "../assets/images/selectstyle9.svg";
+// import selectStyleImg10 from "../assets/images/selectstyle10.svg";
+// import selectStyleImg11 from "../assets/images/selectstyle11.svg";
 import { Button } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -89,30 +90,6 @@ const styleImages: { idA: number; idB: number; url: string; name: string }[] = [
     url: selectStyleImg2,
     name: "test name 2",
   },
-  // {
-  //   url: selectStyleImg3,
-  //   name: "test name",
-  // },
-  // {
-  //   url: selectStyleImg4,
-  //   name: "test name",
-  // },
-  // {
-  //   url: selectStyleImg5,
-  //   name: "test name",
-  // },
-  // {
-  //   url: selectStyleImg6,
-  //   name: "test name",
-  // },
-  // {
-  //   url: selectStyleImg7,
-  //   name: "test name",
-  // },
-  // {
-  //   url: selectStyleImg8,
-  //   name: "test name",
-  // },
 ];
 
 export enum CameraState {
@@ -197,7 +174,6 @@ const HomePage = () => {
 
               let imageAspectRatio = imageToStyle.height / imageToStyle.width;
               imageCanvas.height = imageCanvas.width * imageAspectRatio;
-              console.log("New targetCanvas.height:" + imageCanvas.height);
               if (imageCanvasCtx != null) {
                 imageCanvasCtx.drawImage(
                   imageToStyle,
@@ -216,6 +192,7 @@ const HomePage = () => {
                   imageCanvas.width,
                   imageCanvas.height
                 );
+
                 doStyleTransfer(imageToStyleImgData, styleImage, targetCanvas);
               }
             };
@@ -234,9 +211,9 @@ const HomePage = () => {
                 let imageToStyleP = await loadImage(state.imageToStyle);
 
                 Promise.all([styleImageP, imageToStyleP])
-                  .then((images) => {
-                    let styleImage = images[0];
-                    let imageToStyle = images[1];
+                  .then((sImages) => {
+                    let styleImage = sImages[0];
+                    let imageToStyle = sImages[1];
                     resizeAndStylizeImage(
                       imageToStyle,
                       styleImage,
@@ -257,7 +234,7 @@ const HomePage = () => {
             <div className="home_container mx-auto font-theme">
               {loading && (
                 <div className="loader text-center">
-                  <img src={Loader} style={{ width: "374px" }} alt="loader" />
+                  <img src={Loader} style={{ width: "354px" }} alt="loader" />
                   <h2 className="fs-25 fw-bold text-black mb-4">
                     Your Images are being generated!
                   </h2>
@@ -285,6 +262,7 @@ const HomePage = () => {
                 </div>
               )}
 
+              {/* // generated style images carousel */}
               <div
                 className={`imageStyles_slider pb-5 ${
                   step === 2 ? "block" : "hidden"
@@ -350,7 +328,6 @@ const HomePage = () => {
                   )}
                 </Slider>
               </div>
-
               <div
                 className={`${
                   step === 3 && canvas.canvasA > 0 ? "block" : "hidden"

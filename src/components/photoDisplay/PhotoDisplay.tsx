@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Card, Grid } from "@mui/material";
 import styles from "./photo.module.css";

@@ -58,6 +58,8 @@ const UploadImage = ({ setStateCallback, setFile, file }: Props) => {
           <div className="file-input text-center cursor-pointer">
             <input
               type="file"
+              accept=".png, .jpg, .jpeg"
+              multiple={false}
               onChange={handleImageChange}
               className="opacity-0 cursor-pointer"
               style={{

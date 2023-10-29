@@ -1,15 +1,16 @@
-import React, { useState } from "react";
-import "./ImageStyles.css";
+import "./generatedImages.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import NextArrow from "../nextArrow/NextArrow";
-import PrevArrow from "../prevArrow/PrevArrow";
+import NextArrow from "../../nextArrow/NextArrow";
+import PrevArrow from "../../prevArrow/PrevArrow";
 
-const ImageStyles = ({ images }: { images: string[] }) => {
-  const [changeScreen, setChangeScreen] = useState(false);
-  const [changeTitle, setChangeTitle] = useState(null);
+type IProps = {
+  images: string[];
+  styleImages: { idA: number; idB: number; url: string; name: string }[];
+};
 
+const GeneratedImages = ({ images, styleImages }: IProps) => {
   const settings = {
     infinite: false,
     slidesToShow: 3,
@@ -37,30 +38,20 @@ const ImageStyles = ({ images }: { images: string[] }) => {
     ],
   };
 
-  const imageHandler = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    // const url = e.currentTarget.getAttribute("src") as string;
-    // if (image) {
-    //   setStyleImageCallback(url);
-    //   setChangeScreen(true);
-    //   setChangeTitle("Select Styles");
-    //   setTimeout(() => {}, 1000);
-    // } else {
-    //   alert("Please upload an image");
-    // }
-  };
+  const imageHandler = () => {};
 
   return (
     <>
       <div className="section_heading border-top-style mt-4">
         <h6 className="fs-15 fw-medium text-capitalize text-black image-styles-title text-center py-3 font-theme">
-          {changeTitle ? changeTitle : "Image Styles"}
+          Choose Styles
         </h6>
       </div>
 
       <div className="imageStyles_slider pb-5">
         <div>
           <Slider {...settings}>
-            {images?.map((sliderItem: string, index: number) => (
+            {images?.map((sliderItem, index: number) => (
               <div
                 className="slider-item bg-transparent border-0 text-decoration-none"
                 key={index}
@@ -77,9 +68,9 @@ const ImageStyles = ({ images }: { images: string[] }) => {
                   alt="slider-img"
                 />
 
-                {/* <h6 className="fs-15 font-medium text-capitalize text-black">
-                  {sliderItem.name.slice(0, 16)}
-                </h6> */}
+                <h6 className="fs-15 font-medium text-capitalize text-black">
+                  {styleImages[index]?.name.slice(0, 16)}
+                </h6>
               </div>
             ))}
           </Slider>
@@ -89,4 +80,4 @@ const ImageStyles = ({ images }: { images: string[] }) => {
   );
 };
 
-export default ImageStyles;
+export default GeneratedImages;
