@@ -78,7 +78,7 @@ type Props = {
 };
 
 const PhotoDisplay = ({ canvasData, handleBack }: Props) => {
-  const [withWatermark, setWithWatermark] = useState(false);
+  const [withWatermark, setWithWatermark] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [rotation, setRotation] = useState(0);
   const [imageURL, setImageURL] = useState("");
@@ -171,18 +171,18 @@ const PhotoDisplay = ({ canvasData, handleBack }: Props) => {
   };
 
 
-  const editToUpdate = async () => {
-    if (canvasData?.canvasA > 0) {
-      let imageCanvas = document.querySelector(
-        `#canvasContainer${canvasData.canvasB}`
-      ) as HTMLCanvasElement;
+  // const editToUpdate = async () => {
+  //   if (canvasData?.canvasA > 0) {
+  //     let imageCanvas = document.querySelector(
+  //       `#canvasContainer${canvasData.canvasB}`
+  //     ) as HTMLCanvasElement;
 
-      const dataURL = await generateWatermarkedDataURL(imageCanvas, watermarkLogo, withWatermark);
-      if (dataURL) {
-        setImageURL(dataURL);
-      }
-    }
-  };
+  //     const dataURL = await generateWatermarkedDataURL(imageCanvas, watermarkLogo, withWatermark);
+  //     if (dataURL) {
+  //       setImageURL(dataURL);
+  //     }
+  //   }
+  // };
 
   const rotateLeft = () => {
     setRotation((prevRotation) => prevRotation - 90);
