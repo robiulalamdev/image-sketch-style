@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Card, Grid } from "@mui/material";
@@ -10,6 +11,8 @@ import ImageEditTabBtn from "../imageEdit/ImageEditTabBtn";
 import { GrRotateLeft, GrRotateRight } from "react-icons/gr";
 import DigitalImage from "../imageEditTab/DigitalImage";
 import ImageOnCanvas from "../imageEditTab/ImageOnCanvas";
+
+import watermarkLogo from "../../assets/watermark.png"
 
 const options = [
   { value: "PNG ", label: "PNG " },
@@ -75,9 +78,111 @@ type Props = {
 };
 
 const PhotoDisplay = ({ canvasData, handleBack }: Props) => {
+  const [withWatermark, setWithWatermark] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [rotation, setRotation] = useState(0);
   const [imageURL, setImageURL] = useState("");
+
+  const generateWatermarkedDataURL = async (imageCanvas: HTMLCanvasElement, watermarkLogo: string, downloadFormat: boolean): Promise<string> => {
+    const imageCanvasCtx = imageCanvas.getContext("2d");
+    const downloadImgData = imageCanvasCtx?.getImageData(
+      0,
+      0,
+      imageCanvas.width,
+      imageCanvas.height
+    );
+  
+    if (downloadImgData) {
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = imageCanvas.width;
+      tempCanvas.height = imageCanvas.height;
+      const tempCtx = tempCanvas.getContext('2d');
+  
+      // Draw the original image onto the temporary canvas
+      tempCtx && tempCtx.putImageData(downloadImgData, 0, 0);
+  
+      if (downloadFormat) {
+        // Add a watermark to the center of the temporary canvas
+        const watermark = new Image();
+        watermark.src = watermarkLogo;
+  
+        await new Promise(resolve => {
+          watermark.onload = resolve;
+        });
+  
+        // Adjust the size and opacity of the watermark as needed
+        const maxWatermarkSize = Math.min(imageCanvas.width, imageCanvas.height) * 0.8;
+        const aspectRatio = watermark.width / watermark.height;
+        const newWatermarkWidth = Math.min(maxWatermarkSize, watermark.width);
+        const newWatermarkHeight = newWatermarkWidth / aspectRatio;
+  
+        // Position the resized watermark at the center
+        const watermarkX = (tempCanvas.width - newWatermarkWidth) / 2;
+        const watermarkY = (tempCanvas.height - newWatermarkHeight) / 2;
+  
+        // Set the opacity of the watermark
+        tempCtx && (tempCtx.globalAlpha = 0.4);
+  
+        // Draw the watermark
+        tempCtx && tempCtx.drawImage(watermark, watermarkX, watermarkY, newWatermarkWidth, newWatermarkHeight);
+  
+        // Reset the global alpha to 1 for other drawings
+        tempCtx && (tempCtx.globalAlpha = 1);
+      }
+  
+      return tempCanvas.toDataURL("image/png");
+    }
+  
+    return '';
+  };
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (canvasData?.canvasA > 0) {
+        let imageCanvas = document.querySelector(
+          `#canvasContainer${canvasData.canvasB}`
+        ) as HTMLCanvasElement;
+  
+        const dataURL = await generateWatermarkedDataURL(imageCanvas, watermarkLogo, withWatermark);
+        if (dataURL) {
+          setImageURL(dataURL);
+        }
+      }
+    };
+  
+    fetchData();
+  }, [canvasData, withWatermark]);
+
+  const handleDownloadImage =async () => {
+    let imageCanvas = document.querySelector(
+      `#canvasContainer${canvasData.canvasB}`
+    ) as HTMLCanvasElement;
+    const dataURL = await generateWatermarkedDataURL(imageCanvas, watermarkLogo,withWatermark);
+    if(dataURL){
+      const a = document.createElement("a");
+      a.href = dataURL;
+      a.download = "image.png";
+      a.click();
+    }else{
+      alert("Something went wrong")
+    }
+    
+  };
+
+
+  const editToUpdate = async () => {
+    if (canvasData?.canvasA > 0) {
+      let imageCanvas = document.querySelector(
+        `#canvasContainer${canvasData.canvasB}`
+      ) as HTMLCanvasElement;
+
+      const dataURL = await generateWatermarkedDataURL(imageCanvas, watermarkLogo, withWatermark);
+      if (dataURL) {
+        setImageURL(dataURL);
+      }
+    }
+  };
 
   const rotateLeft = () => {
     setRotation((prevRotation) => prevRotation - 90);
@@ -86,51 +191,6 @@ const PhotoDisplay = ({ canvasData, handleBack }: Props) => {
   const rotateRight = () => {
     setRotation((prevRotation) => prevRotation + 90);
   };
-
-  useEffect(() => {
-    if (canvasData?.canvasA > 0) {
-      let imageCanvas = document.querySelector(
-        `#canvasContainer${canvasData.canvasB}`
-      ) as HTMLCanvasElement;
-
-      let imageCanvasCtx = imageCanvas.getContext("2d");
-      let downloadImgData = imageCanvasCtx?.getImageData(
-        0,
-        0,
-        imageCanvas.width,
-        imageCanvas.height
-      );
-      if (downloadImgData) {
-        const dataURL = imageCanvas.toDataURL("image/png");
-        setImageURL(dataURL);
-      }
-    }
-  }, [canvasData]);
-
-  const handleDownloadImage = () => {
-    let imageCanvas = document.querySelector(
-      `#canvasContainer${canvasData.canvasB}`
-    ) as HTMLCanvasElement;
-
-    let imageCanvasCtx = imageCanvas.getContext("2d");
-
-    let downloadImgData = imageCanvasCtx?.getImageData(
-      0,
-      0,
-      imageCanvas.width,
-      imageCanvas.height
-    );
-
-    if (downloadImgData) {
-      const dataURL = imageCanvas.toDataURL("image/png");
-      setImageURL(dataURL);
-      const a = document.createElement("a");
-      a.href = dataURL;
-      a.download = "image.png";
-      a.click();
-    }
-  };
-
   return (
     <>
       <section id="image_edit" className="text-left font-theme">
@@ -162,7 +222,7 @@ const PhotoDisplay = ({ canvasData, handleBack }: Props) => {
                       setActiveTab={setActiveTab}
                     />
                   </div>
-                  {activeTab === 0 && <DigitalImage options={options} />}
+                  {activeTab === 0 && <DigitalImage setWithWatermark={setWithWatermark} withWatermark={withWatermark} options={options} />}
                   {activeTab === 1 && (
                     <ImageOnCanvas
                       imageSizeBtn={imageSizeBtn}

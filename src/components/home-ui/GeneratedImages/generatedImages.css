@@ -1,9 +1,11 @@
 .slick-slide img {
-  display: inline-block !important;
+  /* display: inline-block !important; */
+  display: block !important;
 }
 
 .slider-item {
-  text-align: center;
+  /* text-align: center; */
+  display: inline-flex !important;
   margin-bottom: 30px;
 }
 

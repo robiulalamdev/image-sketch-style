@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Select from "react-select";
 
-const DigitalImage = ({ options }: any) => {
+const DigitalImage = ({ setWithWatermark,withWatermark, options }: any) => {
   return (
     <div className="image_settings">
       {/* <div className='impression_potrait mb-5'>
@@ -51,23 +51,21 @@ const DigitalImage = ({ options }: any) => {
         <h3 className="text-black fw-medium fs-18 mb-4">Download Format</h3>
 
         <div className="radio_group">
-          <form action="#">
-            <p className="mb-3">
+            <p onClick={()=>setWithWatermark(true)} className="mb-3">
               <input
                 type="radio"
                 id="withWaterMark"
                 name="radio-group"
-                defaultChecked
+                checked={withWatermark}
               />
               <label htmlFor="withWaterMark">With watermark (free)</label>
             </p>
-            <p>
-              <input type="radio" id="withOutWaterMark" name="radio-group" />
+            <p onClick={()=>setWithWatermark(false)}>
+              <input type="radio" id="withOutWaterMark" name="radio-group" checked={!withWatermark} />
               <label htmlFor="withOutWaterMark">
                 Without watermark ($3.00){" "}
               </label>
             </p>
-          </form>
         </div>
       </div>
     </div>
